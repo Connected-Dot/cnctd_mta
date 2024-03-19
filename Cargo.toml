@@ -1,6 +1,6 @@
 [package]
 name = "cnctd_mta"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Connected Dot Inc.", "Kyle Ebner <kyle@cnctd.world>"]
 description = "Methods to receive MTA subway info"
@@ -12,6 +12,7 @@ keywords = ["module"]
 
 [dependencies]
 anyhow = "1.0.81"
+futures = "0.3.30"
 gtfs-rt = "0.4.0"
 prost = "0.11"
 prost-derive = "0.11"

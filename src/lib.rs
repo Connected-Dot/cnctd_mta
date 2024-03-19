@@ -1,6 +1,7 @@
 use gtfs_rt::{FeedMessage, VehiclePosition};
 use prost::Message;
 use serde_json::{json, Value};
+use futures::future::join_all;
 
 pub enum Line {
     Blue,
@@ -64,6 +65,34 @@ impl MTA {
             },
             None => Err(anyhow::anyhow!("Invalid line name provided")), // Custom error handling
         }
+    }
+
+    pub async fn get_all_lines() -> anyhow::Result<Value> {
+        let lines = vec![
+            "Blue", "G", "Yellow", "Number", "Orange", "Brown", "L", "SIR",
+        ];
+
+        let fetches = lines.into_iter().map(|line| {
+            MTA::get_line(line)
+        });
+
+        let results = join_all(fetches).await;
+        let mut all_vehicles = Vec::new();
+
+        for result in results {
+            match result {
+                Ok(value) => {
+                    if let Value::Array(vehicles) = value {
+                        for vehicle in vehicles {
+                            all_vehicles.push(vehicle);
+                        }
+                    }
+                },
+                Err(e) => return Err(anyhow::anyhow!("Error fetching line data: {:?}", e)),
+            }
+        }
+
+        Ok(json!(all_vehicles))
     }
 }
 

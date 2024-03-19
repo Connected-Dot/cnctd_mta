@@ -4,7 +4,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_commands() {
-        let vehicles = MTA::get_line("g").await.unwrap();
+        let vehicles = MTA::get_all_lines().await.unwrap();
         println!("vehicles: {:?}", vehicles);
     }
 }
