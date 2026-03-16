@@ -1,22 +1,20 @@
 [package]
 name = "cnctd_mta"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2021"
 authors = ["Connected Dot Inc.", "Kyle Ebner <kyle@cnctd.world>"]
-description = "Methods to receive MTA subway info"
+description = "NYC MTA subway realtime data: arrivals, alerts, and vehicle positions"
 repository = "https://github.com/Connected-Dot/cnctd_mta"
 license = "MIT"
-keywords = ["module"]
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+keywords = ["mta", "subway", "gtfs", "transit"]
 
 [dependencies]
-anyhow = "1.0.81"
-futures = "0.3.30"
-gtfs-rt = "0.4.0"
-prost = "0.11"
-prost-derive = "0.11"
-reqwest = "0.11.26"
-serde = "1.0.197"
-serde_json = "1.0.114"
-tokio = { version = "1.36.0", features = ["full"] }
+anyhow = "1"
+chrono = { version = "0.4", features = ["serde"] }
+futures = "0.3"
+gtfs-realtime = "0.2"
+prost = "0.14"
+reqwest = { version = "0.12", features = ["rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
